@@ -1,0 +1,38 @@
+roles:
+- name: ALL
+  commands:
+  - oc get nodes -ndefault
+  - oc get nodes -ndefault -ojson
+  - rpm -qa
+- name: podgetter
+  commands:
+  - oc get pods -ndefault
+  - oc get pods -ndefault -oyaml
+  - oc get pods SUBJECT -ndefault
+  - oc get pods SUBJECT -ndefault -oyaml
+  - oc get pods SUBJECT -ndefault -ojson
+  - tail -f /var/log/messages
+  - oc get nodes -ndefault -ojson
+- name: routergetter
+  commands:
+  - oc get dc router -ndefault
+  - oc get dc router -ndefault -oyaml
+  - oc get dc router -ndefault -ojson
+- name: logging
+  commands:
+  - oc get pods -nlogging
+  - oc get pods SUBJECT -nlogging
+  - oc get pods SUBJECT -nlogging -ojson
+  - oc logs SUBJECT -nlogging
+  - oc logs SUBJECT -nlogging --follow
+  - oc logs SUBJECT -cSUBJECT -nlogging
+  - oc logs SUBJECT -cSUBJECT -nlogging --follow
+
+users:
+- username: jdiaz
+  roles:
+  - podgetter
+  - logging
+- username: jdiaz2
+  roles:
+  - logging
